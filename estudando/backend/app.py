@@ -18,5 +18,23 @@ def add_user():
     conn.commit()
     return jsonify({"Menssage":"Cadastrado com sucesso"}),201
 
+# Listar usuarios
+
+@app.route("/users",methods = ["GET"])
+def pegarUsuario():
+    
+    # Faça uma ligação com o banco de dados
+    conn = get_connection()
+    # Criando um tradutor de codigo sql
+    cursor = conn.cursor(dictonary=True)
+    # Mandando um codigo sql atraves de uma string
+    cursor.execute("""
+    SELECT * FROM users;
+    """)
+    # Buscando todos os usuarios do banco de dados e salvando em uma tupla chamada users
+    users=cursor.fetchall()
+    # Transformando a tupla em um json
+    return jsonify(users),200
+
 if __name__=="__main__":
     app.run(debug = True)                                        
