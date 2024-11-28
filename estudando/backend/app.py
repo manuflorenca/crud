@@ -34,10 +34,7 @@ def pegarUsuario():
     # Buscando todos os usuarios do banco de dados e salvando em uma tupla chamada users
     users=cursor.fetchall()
     # Transformando a tupla em um json
-    return jsonify(users),200
-
-if __name__=="__main__":
-    app.run(debug = True)       
+    return jsonify(users),200    
 
 #produtos
 
@@ -48,8 +45,8 @@ def add_produto():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO produtos(nome) values(%s,%s,%s)
-    """,(data["nome"],data["marca"],data["valor"]))
+    INSERT INTO produtos(nome,marcar,valor) values(%s,%s,%s)
+    """,(dados["nome"],dados["marca"],dados["valor"]))
 
     conn.commit()
     return jsonify({"Menssage":"Cadastrado com sucesso"}),201
@@ -60,12 +57,15 @@ def pegarProdutos():
     # Faça uma ligação com o banco de dados
     conn = get_connection()
     # Criando um tradutor de codigo sql
-    cursor = conn.cursor(dictonary=True)
+    cursor = conn.cursor(dictionary=True)
     # Mandando um codigo sql atraves de uma string
     cursor.execute("""
     SELECT * FROM produtos;
     """)
     # Buscando todos os usuarios do banco de dados e salvando em uma tupla chamada users
-    product=cursor.fetchall()
+    products=cursor.fetchall()
     # Transformando a tupla em um json
-    return jsonify(users),200                               
+    return jsonify(products),200      
+
+if __name__=="__main__":
+    app.run(debug = True)                            
