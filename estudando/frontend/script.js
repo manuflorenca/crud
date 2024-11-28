@@ -1,7 +1,6 @@
 const API_USER='http://127.0.0.1:5000/users'
  
 const formUser=document.querySelector("#form_user");
-
 const corpoTabela = document.querySelector("#corpoTabela");
 
 async function buscarUsuario(){
